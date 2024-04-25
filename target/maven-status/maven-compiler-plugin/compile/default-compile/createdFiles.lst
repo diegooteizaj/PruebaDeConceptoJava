@@ -1,0 +1,15 @@
+com/venturicg/poc/service/PersonaService.class
+com/venturicg/poc/web/dto/PersonaDTO.class
+com/venturicg/poc/web/restcontroller/PersonaRestController.class
+com/venturicg/poc/repository/PaisDAO.class
+com/venturicg/poc/web/dto/PaisDTO.class
+com/venturicg/poc/repository/PersonaDAO.class
+com/venturicg/poc/web/controller/PersonaController.class
+com/venturicg/poc/service/impl/PersonaServiceImpl.class
+com/venturicg/poc/service/PaisesService.class
+com/venturicg/poc/service/model/Persona.class
+com/venturicg/poc/service/impl/PaisServiceImpl.class
+com/venturicg/poc/web/controller/PaisesController.class
+com/venturicg/poc/PocApplication.class
+com/venturicg/poc/service/model/Pais.class
+com/venturicg/poc/web/restcontroller/PaisRestController.class

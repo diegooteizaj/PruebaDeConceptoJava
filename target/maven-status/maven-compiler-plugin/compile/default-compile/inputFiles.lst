@@ -1,0 +1,15 @@
+/Users/diegooteiza/Desktop/POC/poc/src/main/java/com/venturicg/poc/repository/PaisDAO.java
+/Users/diegooteiza/Desktop/POC/poc/src/main/java/com/venturicg/poc/web/dto/PaisDTO.java
+/Users/diegooteiza/Desktop/POC/poc/src/main/java/com/venturicg/poc/service/PaisesService.java
+/Users/diegooteiza/Desktop/POC/poc/src/main/java/com/venturicg/poc/web/controller/PaisesController.java
+/Users/diegooteiza/Desktop/POC/poc/src/main/java/com/venturicg/poc/service/impl/PersonaServiceImpl.java
+/Users/diegooteiza/Desktop/POC/poc/src/main/java/com/venturicg/poc/web/restcontroller/PaisRestController.java
+/Users/diegooteiza/Desktop/POC/poc/src/main/java/com/venturicg/poc/repository/PersonaDAO.java
+/Users/diegooteiza/Desktop/POC/poc/src/main/java/com/venturicg/poc/PocApplication.java
+/Users/diegooteiza/Desktop/POC/poc/src/main/java/com/venturicg/poc/service/impl/PaisServiceImpl.java
+/Users/diegooteiza/Desktop/POC/poc/src/main/java/com/venturicg/poc/web/controller/PersonaController.java
+/Users/diegooteiza/Desktop/POC/poc/src/main/java/com/venturicg/poc/web/dto/PersonaDTO.java
+/Users/diegooteiza/Desktop/POC/poc/src/main/java/com/venturicg/poc/service/PersonaService.java
+/Users/diegooteiza/Desktop/POC/poc/src/main/java/com/venturicg/poc/service/model/Persona.java
+/Users/diegooteiza/Desktop/POC/poc/src/main/java/com/venturicg/poc/web/restcontroller/PersonaRestController.java
+/Users/diegooteiza/Desktop/POC/poc/src/main/java/com/venturicg/poc/service/model/Pais.java

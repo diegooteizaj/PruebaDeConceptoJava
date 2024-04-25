@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>POC SGO</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+  <!-- DataTables CSS -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+</head>
+
+<body>
+<div class="container">
+
+  <!-- Modal para agregar/editar persona -->
+  <div class="modal fade" id="modalAgregarEditarPersona" tabindex="-1" role="dialog" aria-labelledby="modalAgregarEditarPersonaTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalAgregarEditarPersonaTitle">Agregar/Editar Persona</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="formAgregarEditarPersona">
+            <input type="hidden" id="personaId" name="personaId">
+            <div class="form-group">
+              <label for="nombre">Nombre:</label>
+              <input type="text" class="form-control" id="nombre" name="nombre" required>
+            </div>
+            <div class="form-group">
+              <label for="pais">País:</label>
+              <select class="form-control" id="pais" name="pais" required>
+                <option value="Argentina">Argentina</option>
+                <option value="Colombia">Colombia</option>
+                <option value="USA">USA</option>
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" id="btnGuardarPersona">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal para confirmar eliminación -->
+  <div class="modal fade" id="modalEliminarPersona" tabindex="-1" role="dialog" aria-labelledby="modalEliminarPersonaTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalEliminarPersonaTitle">Confirmar eliminación</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          ¿Estás seguro de que deseas eliminar esta persona?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-danger" id="btnConfirmarEliminarPersona">Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h5 class="mb-0">Personas</h5>
+      <button class="btn btn-success" id="btnAbrirModalAgregarPersona">Agregar Persona</button>
+    </div>
+    <div class="card-body">
+      <table id="persona" class="table table-bordered">
+        <thead>
+        <tr>
+          <th>Id</th>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Pais</th>
+          <th>Editar</th>
+          <th>Eliminar</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- DataTables JS -->
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+
+<script>
+  $(document).ready(function() {
+    // Inicialización de DataTables
+    $('#persona').DataTable();
+
+    // Obtener datos de la API REST y mostrar en la tabla
+    $.ajax({
+      url: 'http://localhost:8080/rest/persona',
+      method: 'GET',
+      success: function(response) {
+        // Limpiar la tabla antes de agregar nuevos datos
+        $('#persona tbody').empty();
+        // Iterar sobre los datos recibidos y agregar filas a la tabla
+        response.forEach(function(persona) {
+          $('#persona tbody').append(
+                  `<tr>
+              <td>${persona.id}</td>
+              <td>${persona.nombre}</td>
+              <td>${persona.apellido}</td>
+              <td>${persona.pais_id}</td>
+              <td><button class="btn btn-primary btnEditarPersona" data-id="${persona.id}">Editar</button></td>
+              <td><button class="btn btn-danger btnEliminarPersona" data-id="${persona.id}">Eliminar</button></td>
+            </tr>`
+          );
+        });
+      },
+      error: function(xhr, status, error) {
+        console.error('Error al obtener datos de la API:', error);
+      }
+    });
+
+    // Evento click del botón Abrir Modal Agregar Persona
+    $('#btnAbrirModalAgregarPersona').on('click', function() {
+      // Limpiar el formulario
+      $('#formAgregarEditarPersona')[0].reset();
+      // Mostrar el modal
+      $('#modalAgregarEditarPersona').modal('show');
+    });
+
+    // Evento click del botón Editar Persona
+    $('.btnEditarPersona').on('click', function() {
+      // Obtener el id de la persona seleccionada
+      var personaId = $(this).data('id');
+      // Simular la recuperación de datos de la persona seleccionada (reemplazar con tu lógica)
+      var nombre = $(this).closest('tr').find('td:nth-child(2)').text();
+      var pais = $(this).closest('tr').find('td:nth-child(3)').text();
+      // Llenar el formulario con los datos de la persona seleccionada
+      $('#personaId').val(personaId);
+      $('#nombre').val(nombre);
+      $('#pais').val(pais);
+      // Mostrar el modal
+      $('#modalAgregarEditarPersona').modal('show');
+    });
+
+    // Evento click del botón Eliminar Persona
+    $('.btnEliminarPersona').on('click', function() {
+      // Obtener el id de la persona seleccionada
+      var personaId = $(this).data('id');
+      // Al hacer clic en el botón de eliminar, mostramos el modal de confirmación
+      $('#modalEliminarPersona').modal('show');
+      // Cuando se confirme la eliminación, podemos realizar la acción de eliminación aquí
+      $('#btnConfirmarEliminarPersona').on('click', function() {
+        console.log("Eliminar persona con ID:", personaId);
+        // Aquí puedes agregar la lógica para eliminar la persona con el ID personaId
+        // Una vez que se haya completado la eliminación, puedes actualizar la tabla si es necesario
+        // Por ahora, solo mostraremos un mensaje en la consola
+        // Cerrar el modal de confirmación
+        $('#modalEliminarPersona').modal('hide');
+      });
+    });
+
+    // Evento click del botón Guardar Persona
+    $('#btnGuardarPersona').on('click', function() {
+      // Aquí puedes agregar la lógica para guardar la persona
+      // Recupera los datos del formulario
+      const personaId = $('#personaId').val();
+      const nombre = $('#nombre').val();
+      const pais = $('#pais').val();
+
+      // Ejemplo de impresión de datos
+      console.log("ID:", personaId);
+      console.log("Nombre:", nombre);
+      console.log("País:", pais);
+
+      // Cierra el modal
+      $('#modalAgregarEditarPersona').modal('hide');
+
+      // Limpia el formulario
+      $('#formAgregarEditarPersona')[0].reset();
+    });
+  });
+</script>
+
+</body>
+</html>
